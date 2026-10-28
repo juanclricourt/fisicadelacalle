@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Física de la Calle</title>
+<meta name="description" content="La física detrás de cada choque. Videos cortos que explican, con fórmulas y la Ley 63-17, por qué pasan los accidentes en las calles dominicanas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asfalto:#16181c; --asfalto2:#1f2228; --linea:#2c3038;
+    --amarillo:#ffc72c; --rojo:#e63946; --azul:#3a86ff;
+    --texto:#eef0f3; --suave:#a3a9b4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--asfalto);color:var(--texto);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  /* Barra */
+  header{position:sticky;top:0;z-index:10;background:rgba(22,24,28,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-family:"Archivo Black",sans-serif;font-size:1.1rem;text-decoration:none;letter-spacing:.5px}
+  .logo span{color:var(--amarillo)}
+  nav a{text-decoration:none;color:var(--suave);margin-left:18px;font-weight:600;font-size:.92rem}
+  nav a:hover{color:var(--amarillo)}
+  @media(max-width:560px){nav a:not(.cta){display:none}}
+
+  /* Llamado al curso en la barra */
+  header .wrap{gap:16px}
+  .curso{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:.9rem;white-space:nowrap}
+  .curso .q{color:var(--suave)}
+  .curso .ir{background:var(--amarillo);color:#111;font-weight:700;padding:7px 14px;border-radius:8px;animation:latido 2.4s ease-in-out infinite}
+  .curso:hover .ir{background:#ffd75e}
+  @keyframes latido{0%,100%{box-shadow:0 0 0 0 rgba(255,199,44,.55)}50%{box-shadow:0 0 0 7px rgba(255,199,44,0)}}
+  @media (prefers-reduced-motion:reduce){.curso .ir{animation:none}}
+  @media(max-width:980px){.curso .q{display:none}}
+  @media(max-width:560px){header nav{display:none}.curso .ir{padding:6px 12px;font-size:.85rem}}
+
+  /* Hero */
+  .hero{padding:32px 0 52px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+  .hero + section{padding-top:30px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.4rem)}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;
+    background:repeating-linear-gradient(90deg,var(--amarillo) 0 60px,transparent 60px 110px);opacity:.9}
+  .tag{display:inline-block;background:var(--asfalto2);border:1px solid var(--linea);padding:4px 12px;border-radius:99px;font-size:.82rem;color:var(--suave);margin-bottom:18px}
+  h1{font-family:"Archivo Black",sans-serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1.05;margin-bottom:18px}
+  h1 em{font-style:normal;color:var(--amarillo)}
+  .hero p{font-size:1.15rem;color:var(--suave);max-width:600px;margin-bottom:28px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:700;text-decoration:none}
+  .btn.pri{background:var(--amarillo);color:#111}
+  .btn.sec{border:2px solid var(--linea)}
+  .btn:hover{transform:translateY(-1px)}
+  .formula-flot{font-family:"Courier New",monospace;color:var(--amarillo);opacity:.12;position:absolute;right:-20px;top:40px;font-size:3rem;transform:rotate(-8deg);pointer-events:none;white-space:nowrap}
+
+  section{padding:30px 0}
+  h2{font-family:"Archivo Black",sans-serif;font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:6px}
+  .sub{color:var(--suave);margin-bottom:20px;max-width:640px}
+
+  /* Pilares */
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:var(--asfalto2);border:1px solid var(--linea);border-radius:16px;padding:24px}
+  .card .ico{font-size:1.8rem;margin-bottom:10px}
+  .card h3{font-size:1.1rem;margin-bottom:6px}
+  .card p{color:var(--suave);font-size:.95rem}
+
+  /* Episodios */
+  .ep{border-top:4px solid var(--amarillo)}
+  .ep .num{font-size:.8rem;color:var(--amarillo);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  .ep code{display:block;margin-top:12px;background:#111317;border-radius:8px;padding:10px 12px;font-size:.9rem;color:var(--amarillo);overflow-x:auto}
+
+  /* Carrusel de videos */
+  .carrusel{overflow:hidden;position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .pista{display:flex;gap:18px;width:max-content;padding:4px 0 8px;animation:desfile 40s linear infinite}
+  .carrusel:hover .pista,.carrusel.pausa .pista{animation-play-state:paused}
+  @keyframes desfile{from{transform:translateX(0)}to{transform:translateX(calc(-50% - var(--g,18px) / 2))}}
+  @media (prefers-reduced-motion:reduce){.pista{animation-duration:120s}}
+  .video{flex:0 0 220px;background:var(--asfalto2);border:1px solid var(--linea);border-top:4px solid var(--amarillo);border-radius:16px;overflow:hidden;transition:transform .2s}
+  .video:hover{transform:translateY(-4px)}
+  @media(max-width:560px){.video{flex-basis:180px}}
+  .hero .pista{--g:14px;gap:14px;animation-duration:32s}
+  .hero .video{flex-basis:170px}
+  .hero .video .info{padding:10px 12px 12px}
+  .hero .video p{display:none}
+  .hero .video h3{font-size:.92rem;margin:0}
+  .hero .portada .play{width:50px;height:50px;font-size:1.3rem}
+  .hero .portada .emo{font-size:2.6rem}
+  @media(max-width:560px){.hero .video{flex-basis:150px}}
+  .marco{position:relative;aspect-ratio:9/16;background:#0e0f12;cursor:pointer}
+  .marco iframe,.marco video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+  .portada{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;
+    background:linear-gradient(160deg,#23262d,#121317);background-size:cover;background-position:center}
+  .portada .emo{font-size:3.2rem}
+  .portada .play{width:64px;height:64px;border-radius:50%;background:var(--amarillo);color:#111;display:flex;align-items:center;justify-content:center;font-size:1.6rem;padding-left:4px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+  .portada .pronto{font-size:.85rem;color:var(--suave)}
+  .video .info{padding:16px 18px 18px}
+  .video .num{font-size:.78rem;color:var(--amarillo);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  .video h3{font-size:1.05rem;margin:2px 0 4px}
+  .video p{color:var(--suave);font-size:.9rem}
+
+  /* Calculadora */
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  @media(max-width:760px){.calc{grid-template-columns:1fr}}
+  label{display:block;font-weight:600;margin:16px 0 6px}
+  label:first-child{margin-top:0}
+  input[type=range]{width:100%;accent-color:var(--amarillo)}
+  .val{float:right;color:var(--amarillo)}
+  select{width:100%;padding:10px;border-radius:8px;background:#111317;color:var(--texto);border:1px solid var(--linea);font:inherit}
+  .total{font-family:"Archivo Black",sans-serif;font-size:3rem;color:var(--amarillo);line-height:1}
+  .barra{height:18px;border-radius:9px;background:#111317;overflow:hidden;display:flex;margin:18px 0 8px}
+  .barra .r{background:var(--azul)} .barra .f{background:var(--rojo)}
+  .leyenda{display:flex;gap:18px;font-size:.88rem;color:var(--suave);flex-wrap:wrap}
+  .leyenda i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+  .nota{font-size:.82rem;color:var(--suave);margin-top:14px}
+
+  /* Quién falló */
+  .vs{text-align:center}
+  .vs .autos{font-size:clamp(2.2rem,7vw,3.6rem);margin:2px 0 6px;line-height:1.2}
+  .vs b.r{color:var(--rojo)} .vs b.a{color:var(--azul)}
+
+  /* Preguntas frecuentes */
+  .faq{max-width:780px;margin:0 auto;display:grid;gap:10px}
+  .faq details{background:var(--asfalto2);border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+  .faq details[open]{border-color:var(--amarillo)}
+  .faq summary{list-style:none;cursor:pointer;padding:16px 52px 16px 18px;font-weight:700;position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;
+    background:#111317;color:var(--amarillo);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:transform .2s}
+  .faq details[open] summary::after{content:"−";background:var(--amarillo);color:#111}
+  .faq summary:hover{color:var(--amarillo)}
+  .faq .resp{padding:0 18px 16px;color:var(--suave)}
+  .faq .resp a{color:var(--amarillo);font-weight:600}
+
+  /* Redes */
+  .redes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .redes a{padding:12px 20px;border-radius:10px;background:var(--asfalto2);border:1px solid var(--linea);text-decoration:none;font-weight:700}
+  .redes a:hover{border-color:var(--amarillo)}
+
+  footer{border-top:1px solid var(--linea);padding:18px 0;color:var(--suave);font-size:.88rem;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#" class="logo">FÍSICA DE LA <span>CALLE</span></a>
+    <a href="curso.html" class="curso">
+      <span class="q">🎬 ¿Quieres aprender a hacer estos reels?</span>
+      <span class="ir">Entra al Curso →</span>
+    </a>
+    <nav>
+      <a href="#episodios">Episodios</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#redes" class="cta">Síguenos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">🚦 Seguridad vial explicada con ciencia</span>
+      <h1>La física detrás<br>de cada <em>choque</em>.</h1>
+      <p>Videos cortos en 3D que explican por qué pasan los accidentes en nuestras calles: con fórmulas en pantalla y lo que dice la Ley 63-17.</p>
+      <div class="btns">
+        <a href="#episodios" class="btn pri">Ver episodios</a>
+        <a href="#calculadora" class="btn sec">¿Cuánto tardas en frenar?</a>
+      </div>
+    </div>
+    <div class="carrusel" id="episodios">
+      <div class="pista" id="pista"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>¿Qué hacemos?</h2>
+    <p class="sub">Cada video toma una situación real de la calle y la desarma en tres partes.</p>
+    <div class="grid3">
+      <div class="card"><div class="ico">🎬</div><h3>Recreación 3D</h3><p>Vemos el momento exacto del choque, paso a paso y en cámara lenta.</p></div>
+      <div class="card"><div class="ico">📐</div><h3>La fórmula</h3><p>Velocidad, tiempo de reacción y fricción: los números que deciden si frenas a tiempo.</p></div>
+      <div class="card"><div class="ico">⚖️</div><h3>La ley</h3><p>El artículo de la Ley 63-17 de Movilidad y Tránsito que aplica a cada caso.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="calculadora">
+  <div class="wrap">
+    <h2>Calcula tu distancia de frenado</h2>
+    <p class="sub">Mueve los controles y mira cuántos metros necesitas para detenerte.</p>
+    <div class="calc">
+      <div class="card">
+        <label>Velocidad <span class="val" id="vOut">60 km/h</span></label>
+        <input type="range" id="v" min="10" max="140" step="5" value="60">
+        <label>Tiempo de reacción <span class="val" id="tOut">1.5 s</span></label>
+        <input type="range" id="t" min="0.5" max="4" step="0.1" value="1.5">
+        <label for="mu">Estado de la calle</label>
+        <select id="mu">
+          <option value="0.7">Asfalto seco</option>
+          <option value="0.4">Asfalto mojado</option>
+          <option value="0.25">Grava o arena</option>
+        </select>
+      </div>
+      <div class="card">
+        <div style="color:var(--suave);font-weight:600">Distancia total para detenerte</div>
+        <div class="total" id="total">45 m</div>
+        <div class="barra"><div class="r" id="barR"></div><div class="f" id="barF"></div></div>
+        <div class="leyenda">
+          <span><i style="background:var(--azul)"></i>Reacción: <b id="dR">25 m</b></span>
+          <span><i style="background:var(--rojo)"></i>Frenado: <b id="dF">20 m</b></span>
+        </div>
+        <p class="nota">Cálculo aproximado con g = 9.81 m/s². En la vida real influyen las gomas, los frenos y el peso del vehículo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vs" style="background:#1a1c21">
+  <div class="wrap">
+    <h2>¿Quién falló?</h2>
+    <div class="autos">🔴 <span style="font-size:.5em;color:var(--suave)">vs</span> 🔵</div>
+    <p class="sub" style="margin:0 auto">En cada episodio te toca decidir: ¿el carro <b class="r">rojo</b> o el <b class="a">azul</b>? Deja tu voto en los comentarios y descubre qué dice la física… y la ley.</p>
+  </div>
+</section>
+
+<section id="preguntas">
+  <div class="wrap">
+    <h2 style="text-align:center">Preguntas frecuentes</h2>
+    <p class="sub" style="text-align:center;margin-left:auto;margin-right:auto">Lo que más nos preguntan en los comentarios.</p>
+    <div class="faq">
+      <details>
+        <summary>¿Qué es Física de la Calle?</summary>
+        <div class="resp">Es una serie de videos cortos que explica por qué pasan los accidentes de tránsito usando física: velocidad, tiempo de reacción y fricción. En cada caso mostramos la fórmula en pantalla y lo que dice la Ley 63-17.</div>
+      </details>
+      <details>
+        <summary>¿Los choques de los videos son reales?</summary>
+        <div class="resp">Son recreaciones en 3D de situaciones que pasan todos los días en nuestras calles: frenar tarde, mirar el celular, manejar con lluvia. No mostramos accidentes reales ni personas heridas.</div>
+      </details>
+      <details>
+        <summary>¿Qué es la Ley 63-17?</summary>
+        <div class="resp">Es la Ley de Movilidad, Transporte Terrestre, Tránsito y Seguridad Vial de la República Dominicana. Ahí están las normas que todo conductor, motorista y peatón debe cumplir. En cada episodio citamos el artículo que aplica al caso.</div>
+      </details>
+      <details>
+        <summary>¿Qué tan exacta es la calculadora de frenado?</summary>
+        <div class="resp">Da una buena aproximación usando la fórmula de física d = v·t + v²/(2μg). En la vida real también influyen el estado de las gomas y los frenos, el peso del vehículo y la pendiente de la calle, así que la distancia puede ser mayor.</div>
+      </details>
+      <details>
+        <summary>¿Cómo voto en "¿Quién falló?"?</summary>
+        <div class="resp">En cada episodio aparecen un carro rojo 🔴 y uno azul 🔵. Deja tu respuesta en los comentarios del video y al final explicamos qué dicen la física y la ley.</div>
+      </details>
+      <details>
+        <summary>¿Puedo usar los videos en mis clases?</summary>
+        <div class="resp">¡Sí! Los videos están pensados para aprender. Puedes compartirlos con tus estudiantes desde nuestras redes para hablar de física y educación vial.</div>
+      </details>
+      <details>
+        <summary>¿Qué aprendo en el curso?</summary>
+        <div class="resp">Aprendes a crear reels como estos: animaciones 3D, voz con inteligencia artificial y edición para redes sociales. <a href="curso.html">Entra al Curso →</a></div>
+      </details>
+      <details>
+        <summary>¿Cada cuánto salen episodios nuevos?</summary>
+        <div class="resp">Publicamos un caso nuevo todos los días en Facebook, YouTube y TikTok. Síguenos para no perderte ninguno.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="redes" class="vs">
+  <div class="wrap">
+    <h2>Síguenos</h2>
+    <p class="sub" style="margin:0 auto">Un nuevo caso de la calle, explicado con ciencia.</p>
+    <div class="redes">
+      <a href="#" target="_blank" rel="noopener">📘 Facebook</a>
+      <a href="#" target="_blank" rel="noopener">▶️ YouTube</a>
+      <a href="#" target="_blank" rel="noopener">🎵 TikTok</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="y"></span> Física de la Calle · Contenido educativo sobre seguridad vial en República Dominicana.</div>
+</footer>
+
+<script>
+  /* ===== TUS VIDEOS =====
+     Agrega un objeto por episodio. Para cada uno usa UNA de estas opciones:
+       youtube: "ID"   → el código del Short (lo que va después de /shorts/ en el enlace)
+       mp4: "videos/frenado.mp4"  → un archivo subido a tu hosting
+     Si no pones ninguna, la tarjeta aparece como "Próximamente".  */
+  const VIDEOS = [
+    { titulo:"El frenado", texto:"A 60 km/h necesitas unos 45 m para detenerte.", emoji:"🛑", youtube:"" },
+    { titulo:"Mirando el celular", texto:"2 segundos en la pantalla = más de 30 m a ciegas.", emoji:"📱", youtube:"" },
+    { titulo:"Con lluvia", texto:"El asfalto mojado casi duplica la distancia de frenado.", emoji:"🌧️", youtube:"" },
+    { titulo:"Episodio 4", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚗", youtube:"" },
+    { titulo:"Episodio 5", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚦", youtube:"" }
+  ];
+
+  const $ = id => document.getElementById(id);
+
+  (function carrusel(){
+    const pista = $('pista'), caja = $('episodios');
+    // Se dibuja la lista dos veces para que el movimiento sea continuo, sin saltos
+    [...VIDEOS, ...VIDEOS].forEach((v, k) => {
+      const i = k % VIDEOS.length;
+      const hay = v.youtube || v.mp4;
+      const fondo = v.youtube ? `background-image:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),url(https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg)` : '';
+      const card = document.createElement('article');
+      card.className = 'video';
+      card.innerHTML = `
+        <div class="marco">
+          <div class="portada" style="${fondo}">
+            ${v.youtube ? '' : `<div class="emo">${v.emoji || '🎬'}</div>`}
+            ${hay ? '<div class="play">▶</div>' : '<div class="pronto">Próximamente</div>'}
+          </div>
+        </div>
+        <div class="info"><div class="num">Episodio ${i + 1}</div><h3>${v.titulo}</h3><p>${v.texto}</p></div>`;
+      if (k >= VIDEOS.length) card.setAttribute('aria-hidden', 'true');
+      if (hay) card.querySelector('.marco').addEventListener('click', function(){
+        // Al reproducir un video, el carrusel se detiene para poder verlo
+        caja.classList.add('pausa');
+        this.innerHTML = v.youtube
+          ? `<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${v.titulo}"></iframe>`
+          : `<video src="${v.mp4}" controls autoplay playsinline></video>`;
+      }, { once:true });
+      pista.appendChild(card);
+    });
+    // En el celular: tocar fuera de un video pausa o reanuda el movimiento
+    caja.addEventListener('touchstart', e => {
+      if (!e.target.closest('.marco')) caja.classList.toggle('pausa');
+    }, { passive:true });
+  })();
+  function calc(){
+    const kmh = +$('v').value, t = +$('t').value, mu = +$('mu').value;
+    const v = kmh / 3.6;
+    const dR = v * t, dF = v * v / (2 * mu * 9.81), tot = dR + dF;
+    $('vOut').textContent = kmh + ' km/h';
+    $('tOut').textContent = t.toFixed(1) + ' s';
+    $('dR').textContent = Math.round(dR) + ' m';
+    $('dF').textContent = Math.round(dF) + ' m';
+    $('total').textContent = Math.round(tot) + ' m';
+    $('barR').style.width = (dR / tot * 100) + '%';
+    $('barF').style.width = (dF / tot * 100) + '%';
+  }
+  ['v','t','mu'].forEach(id => $(id).addEventListener('input', calc));
+  calc();
+  $('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
