@@ -301,10 +301,10 @@
      Si no pones ninguna, la tarjeta aparece como "Próximamente".  */
   const VIDEOS = [
     { titulo:"Puso la direccional tarde", texto:"Señalizó 6 m antes de doblar… y el de atrás iba pegado.", emoji:"🚗", youtube:"7LlS58xuFdQ" },
-    { titulo:"Mirando el celular", texto:"2 segundos en la pantalla = más de 30 m a ciegas.", emoji:"📱", youtube:"" },
+    { titulo:"Sin casco en el motor", texto:"Lo que le pasa a tu cabeza en un choque, con y sin casco.", emoji:"🏍️", youtube:"xPs-cXUdxYQ" },
     { titulo:"Con lluvia", texto:"El asfalto mojado casi duplica la distancia de frenado.", emoji:"🌧️", youtube:"" },
-    { titulo:"Episodio 4", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚗", youtube:"" },
-    { titulo:"Episodio 5", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚦", youtube:"" }
+    { titulo:"Próximo caso", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚗", youtube:"" },
+    { titulo:"Próximo caso", texto:"Muy pronto un nuevo caso de la calle.", emoji:"🚦", youtube:"" }
   ];
 
   const $ = id => document.getElementById(id);
@@ -325,7 +325,7 @@
             ${hay ? '<div class="play">▶</div>' : '<div class="pronto">Próximamente</div>'}
           </div>
         </div>
-        <div class="info"><div class="num">Episodio ${i + 1}</div><h3>${v.titulo}</h3><p>${v.texto}</p></div>`;
+        <div class="info"><div class="num">Episodio ${String(i + 1).padStart(2, "0")}</div><h3>${v.titulo}</h3><p>${v.texto}</p></div>`;
       if (k >= VIDEOS.length) card.setAttribute('aria-hidden', 'true');
       if (hay) card.querySelector('.marco').addEventListener('click', function(){
         // Al reproducir un video, el carrusel se detiene para poder verlo
