@@ -138,6 +138,26 @@
   .faq .resp{padding:0 18px 16px;color:var(--suave)}
   .faq .resp a{color:var(--amarillo);font-weight:600}
 
+  /* Aporte */
+  .aporte{max-width:820px;margin:0 auto;background:var(--asfalto2);border:1px solid var(--linea);border-radius:20px;padding:28px;position:relative;overflow:hidden}
+  .aporte::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--amarillo) 0 40px,transparent 40px 70px)}
+  .aporte .eti{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--amarillo);font-weight:700}
+  .aporte h2{margin:6px 0 8px}
+  .aporte .sub{margin-bottom:22px}
+  .niveles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:22px}
+  .nivel{background:#111317;border:1px solid var(--linea);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px}
+  .nivel.dest{border-color:var(--amarillo);box-shadow:0 0 0 1px var(--amarillo) inset}
+  .nivel .emo{font-size:1.7rem}
+  .nivel .nom{font-weight:700}
+  .nivel .monto{font-family:"Archivo Black",sans-serif;color:var(--amarillo);font-size:1.5rem;line-height:1}
+  .nivel .monto small{font-family:Inter,sans-serif;font-size:.8rem;color:var(--suave);font-weight:600}
+  .nivel ul{list-style:none;color:var(--suave);font-size:.9rem;margin-top:4px}
+  .nivel li{padding:3px 0}
+  .nivel li::before{content:"✓ ";color:var(--amarillo);font-weight:700}
+  .tag-dest{align-self:flex-start;background:var(--amarillo);color:#111;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px}
+  .aporte .btn{width:100%;text-align:center;font-size:1.05rem;padding:15px}
+  .aporte .nota{font-size:.82rem;color:var(--suave);margin-top:12px;text-align:center}
+
   /* Redes */
   .redes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
   .redes a{padding:12px 20px;border-radius:10px;background:var(--asfalto2);border:1px solid var(--linea);text-decoration:none;font-weight:700}
@@ -277,6 +297,40 @@
   </div>
 </section>
 
+<section id="aporte">
+  <div class="wrap">
+    <div class="aporte">
+      <div class="eti">Apoya el proyecto</div>
+      <h2>Tu aporte acelera el próximo episodio 🚀</h2>
+      <p class="sub">Cada caso lleva horas de física, animación 3D y revisión de la Ley 63-17. Si te sirve lo que hacemos, puedes ayudarnos a seguir y recibir algo a cambio.</p>
+      <div class="niveles">
+        <div class="nivel">
+          <div class="emo">☕</div>
+          <div class="nom">Un café para el editor</div>
+          <div class="monto">US$3 <small>o más</small></div>
+          <ul><li>Tu nombre en los créditos del próximo episodio</li></ul>
+        </div>
+        <div class="nivel dest">
+          <span class="tag-dest">El favorito</span>
+          <div class="emo">🪖</div>
+          <div class="nom">Un casco para el canal</div>
+          <div class="monto">US$10 <small>o más</small></div>
+          <ul><li>Tu nombre en los créditos</li><li>Escoges el próximo caso que explicamos</li></ul>
+        </div>
+        <div class="nivel">
+          <div class="emo">🚦</div>
+          <div class="nom">Otro monto</div>
+          <div class="monto">Tú decides</div>
+          <ul><li>Cualquier aporte suma y se agradece</li></ul>
+        </div>
+      </div>
+      <!-- Cambia este enlace por el de tu producto de aporte en Gumroad (precio "paga lo que quieras") -->
+      <a class="btn pri gumroad-button" href="https://TUUSUARIO.gumroad.com/l/aporte" target="_blank" rel="noopener">💛 Hacer mi aporte</a>
+      <p class="nota">🔒 Pago seguro con Gumroad (tarjeta o PayPal). En el pago escribes el monto, tu nombre para los créditos y, si aportas US$10 o más, el caso que quieres ver.</p>
+    </div>
+  </div>
+</section>
+
 <section id="redes" class="vs">
   <div class="wrap">
     <h2>Síguenos</h2>
@@ -357,5 +411,6 @@
   calc();
   $('y').textContent = new Date().getFullYear();
 </script>
+<script src="https://gumroad.com/js/gumroad.js"></script>
 </body>
 </html>
