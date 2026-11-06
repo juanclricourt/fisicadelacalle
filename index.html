@@ -36,7 +36,6 @@
   .logo span{color:var(--amarillo)}
   nav a{text-decoration:none;color:var(--suave);margin-left:18px;font-weight:600;font-size:.92rem}
   nav a:hover{color:var(--amarillo)}
-  @media(max-width:560px){nav a:not(.cta){display:none}}
 
   /* Llamado al curso en la barra */
   header .wrap{gap:16px}
@@ -47,7 +46,42 @@
   @keyframes latido{0%,100%{box-shadow:0 0 0 0 rgba(255,199,44,.55)}50%{box-shadow:0 0 0 7px rgba(255,199,44,0)}}
   @media (prefers-reduced-motion:reduce){.curso .ir{animation:none}}
   @media(max-width:980px){.curso .q{display:none}}
-  @media(max-width:560px){header nav{display:none}.curso .ir{padding:6px 12px;font-size:.85rem}}
+  @media(max-width:560px){.curso .ir{padding:6px 12px;font-size:.85rem}}
+
+  /* Menú en celular */
+  .menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--linea);background:var(--asfalto2);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:none}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--texto);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .solo-movil{display:none}
+  .logo{white-space:nowrap}
+  @media(max-width:420px){.curso .largo{display:none}.logo{font-size:.92rem}header .wrap{gap:10px}}
+  @media(max-width:370px){.logo{font-size:.82rem}}
+  @media(max-width:760px){
+    header .wrap{position:relative}
+    .menu-btn{display:flex}
+    header .curso{margin-left:auto}
+    header .curso .ir{padding:7px 12px;font-size:.85rem}
+    #menu{display:none;position:absolute;top:60px;left:0;right:0;background:var(--asfalto);border-bottom:1px solid var(--linea);padding:8px 20px 18px;flex-direction:column;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+    #menu.abierto{display:flex}
+    #menu a{margin:0;padding:14px 4px;border-bottom:1px solid var(--linea);font-size:1rem;color:var(--texto)}
+    #menu a:last-child{border-bottom:0}
+    #menu .solo-movil{display:block}
+    #menu .curso-movil{margin-top:12px;border:0;background:var(--amarillo);color:#111;text-align:center;border-radius:10px;font-weight:700}
+  }
+
+  /* Ajustes de celular */
+  @media(max-width:560px){
+    .hero{padding-top:24px}
+    .btns .btn{flex:1 1 100%;text-align:center}
+    .aporte{padding:22px 16px}
+    .niveles{gap:12px}
+    .calc .card{padding:18px}
+    .redes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .redes a{flex-direction:column;justify-content:center;gap:6px;padding:12px 6px;font-size:.85rem;text-align:center}
+    footer{padding:18px 8px}
+  }
 
   /* Hero */
   .hero{padding:32px 0 52px;position:relative;overflow:hidden}
@@ -217,12 +251,18 @@
     <a href="#" class="logo">FÍSICA DE LA <span>CALLE</span></a>
     <a href="curso.html" class="curso">
       <span class="q">🎬 ¿Quieres aprender a hacer estos reels?</span>
-      <span class="ir">Entra al Curso →</span>
+      <span class="ir"><span class="largo">Entra al </span>Curso →</span>
     </a>
-    <nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="menu">
       <a href="#episodios">Episodios</a>
       <a href="#calculadora">Calculadora</a>
+      <a href="#aporte" class="solo-movil">Apoya el proyecto</a>
+      <a href="#preguntas" class="solo-movil">Preguntas</a>
       <a href="#redes" class="cta">Síguenos</a>
+      <a href="curso.html" class="solo-movil curso-movil">🎬 Entra al Curso</a>
     </nav>
   </div>
 </header>
@@ -456,6 +496,18 @@
   ['v','t','mu'].forEach(id => $(id).addEventListener('input', calc));
   calc();
   $('y').textContent = new Date().getFullYear();
+  // Menú del celular
+  (function(){
+    const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+    if (!btn || !menu) return;
+    const cerrar = () => { menu.classList.remove('abierto'); btn.setAttribute('aria-expanded','false'); };
+    btn.addEventListener('click', () => {
+      const abierto = menu.classList.toggle('abierto');
+      btn.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    });
+    menu.addEventListener('click', e => { if (e.target.closest('a')) cerrar(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+  })();
 </script>
 <script src="https://gumroad.com/js/gumroad.js"></script>
 </body>
