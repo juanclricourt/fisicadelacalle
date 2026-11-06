@@ -204,6 +204,14 @@
   .nivel ul{list-style:none;color:var(--suave);font-size:.9rem;margin-top:4px}
   .nivel li{padding:3px 0}
   .nivel li::before{content:"✓ ";color:var(--amarillo);font-weight:700}
+  button.nivel{font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%;transition:border-color .15s,transform .15s,box-shadow .15s}
+  button.nivel:hover{border-color:rgba(255,199,44,.6);transform:translateY(-2px)}
+  .nivel.dest{border-color:var(--linea);box-shadow:none}
+  .nivel.sel{border-color:var(--amarillo);box-shadow:0 0 0 2px var(--amarillo) inset;background:#17191e}
+  .nivel .elegir{margin-top:auto;padding-top:10px;font-size:.85rem;font-weight:700;color:var(--suave)}
+  .nivel.sel .elegir{color:var(--amarillo)}
+  .nivel.sel .elegir::before{content:"● "}
+  .nivel:not(.sel) .elegir::before{content:"○ "}
   .tag-dest{align-self:flex-start;background:var(--amarillo);color:#111;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px}
   .aporte .btn{width:100%;text-align:center;font-size:1.05rem;padding:15px}
   .aporte .btn.pronto{display:block;opacity:.6;cursor:default;transform:none}
@@ -383,33 +391,37 @@
       <h2>Tu aporte acelera el próximo episodio 🚀</h2>
       <p class="sub">Cada caso lleva horas de física, animación 3D y revisión de la Ley 63-17. Si te sirve lo que hacemos, puedes ayudarnos a seguir y recibir algo a cambio.</p>
       <div class="niveles">
-        <div class="nivel">
+        <button type="button" class="nivel" data-price="3" aria-pressed="false">
           <div class="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" /> <path d="m6.2 5.3 3.1 3.9" /> <path d="m12.4 3.4 3.1 4" /> <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" /></svg></div>
           <div class="nom">Apoya un episodio</div>
           <div class="monto">US$3 <small>o más</small></div>
           <ul><li>Ayuda a cubrir la voz y el render de un caso</li><li>Tu nombre en los créditos del próximo episodio</li></ul>
-        </div>
-        <div class="nivel">
+          <span class="elegir">Elegir este aporte</span>
+        </button>
+        <button type="button" class="nivel" data-price="5" aria-pressed="false">
           <div class="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" /> <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /> <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" /> <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg></div>
           <div class="nom">Acelera el próximo caso</div>
           <div class="monto">US$5 <small>o más</small></div>
           <ul><li>Ayuda a pagar la animación 3D</li><li>Tu nombre en los créditos</li><li>Ficha PDF del episodio: fórmula, números y artículo de la Ley 63-17</li></ul>
-        </div>
-        <div class="nivel dest">
+          <span class="elegir">Elegir este aporte</span>
+        </button>
+        <button type="button" class="nivel dest sel" data-price="10" aria-pressed="true">
           <span class="tag-dest">El favorito</span>
           <div class="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg></div>
           <div class="nom">Mantén el canal un mes</div>
           <div class="monto">US$10 <small>o más</small></div>
           <ul><li>Ayuda a pagar las herramientas del mes</li><li>Tu nombre en los créditos</li><li>Ficha PDF del episodio</li><li>Escoges el próximo caso que explicamos</li></ul>
-        </div>
-        <div class="nivel">
+          <span class="elegir">Elegir este aporte</span>
+        </button>
+        <button type="button" class="nivel" data-price="" aria-pressed="false">
           <div class="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" /> <path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /> <path d="m2 15 6 6" /> <path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" /></svg></div>
           <div class="nom">Aporte libre</div>
           <div class="monto">Tú decides</div>
           <ul><li>Cualquier aporte suma y se agradece</li></ul>
-        </div>
+          <span class="elegir">Elegir este aporte</span>
+        </button>
       </div>
-      <a class="btn pri gumroad-button" href="https://juancourt.gumroad.com/l/Aporte" target="_blank" rel="noopener">💛 Hacer mi aporte</a>
+      <a class="btn pri" id="btnAporte" href="https://juancourt.gumroad.com/l/Aporte?price=10" target="_blank" rel="noopener">💛 Aportar US$10</a>
       <p class="nota">🔒 Pago seguro con Gumroad. Escribes el monto que quieras y, después de aportar, nos respondes con tu nombre para los créditos y, si aportas US$10 o más, el caso que quieres ver.</p>
     </div>
   </div>
@@ -494,6 +506,21 @@
   ['v','t','mu'].forEach(id => $(id).addEventListener('input', calc));
   calc();
   $('y').textContent = new Date().getFullYear();
+  // Elegir nivel de aporte
+  (function(){
+    const btn = document.getElementById('btnAporte');
+    const cards = document.querySelectorAll('button.nivel');
+    if (!btn || !cards.length) return;
+    const base = 'https://juancourt.gumroad.com/l/Aporte';
+    cards.forEach(c => c.addEventListener('click', () => {
+      cards.forEach(x => { x.classList.remove('sel'); x.setAttribute('aria-pressed','false'); });
+      c.classList.add('sel'); c.setAttribute('aria-pressed','true');
+      const p = c.dataset.price;
+      btn.href = p ? base + '?price=' + p : base;
+      btn.textContent = p ? '💛 Aportar US$' + p : '💛 Aportar el monto que quiera';
+      if (window.gtag) gtag('event', 'elegir_aporte', { monto: p || 'libre' });
+    }));
+  })();
   // Menú del celular
   (function(){
     const btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
@@ -507,6 +534,5 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
   })();
 </script>
-<script src="https://gumroad.com/js/gumroad.js"></script>
 </body>
 </html>
