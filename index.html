@@ -183,6 +183,27 @@
 
   footer{border-top:1px solid var(--linea);padding:18px 0;color:var(--suave);font-size:.88rem;text-align:center}
 </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YNES1542SD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YNES1542SD');
+  // Clics importantes: curso, redes, reels, aporte y compra
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, .marco');
+    if (!el) return;
+    var ev = null, p = {};
+    if (el.classList.contains('marco')) {
+      var h = el.closest('.video'); ev = 'ver_reel'; p.reel = h ? h.querySelector('h3').innerText : '';
+    } else if (el.matches('.curso, a[href$="curso.html"]')) { ev = 'clic_curso'; p.ubicacion = el.classList.contains('curso') ? 'barra' : 'pagina'; }
+    else if (el.closest('.redes')) { ev = 'clic_red_social'; p.red = el.innerText.trim(); }
+    else if (el.closest('#aporte')) { ev = 'clic_aporte'; }
+    else if (el.classList.contains('gumroad-button')) { ev = 'clic_comprar_curso'; }
+    if (ev) gtag('event', ev, p);
+  }, true);
+</script>
 </head>
 <body>
 
