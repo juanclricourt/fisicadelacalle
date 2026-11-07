@@ -503,8 +503,8 @@
 
     // ===== Movimiento: automático + flechas + deslizar con el dedo o el ratón =====
     const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const VEL = quieto ? 0 : 0.35;        // píxeles por cuadro (~21 px/s)
-    let pausaHasta = 0, encima = false, pos = 0;
+    const VEL = quieto ? 0 : 22;          // píxeles por segundo
+    let pausaHasta = 0, encima = false, pos = 0, tPrev = 0;
     const mitad = () => pista.scrollWidth / 2;
     const paso = () => (pista.querySelector('.video')?.offsetWidth || 170) + 14;
     const envolver = () => {               // vuelta infinita sin saltos visibles
@@ -513,9 +513,10 @@
       else if (riel.scrollLeft <= 0) riel.scrollLeft += m;
     };
     const esperar = (ms = 4000) => { pausaHasta = performance.now() + ms; };
-    function avanzar(){
+    function avanzar(t){
+      const dt = Math.min(100, t - (tPrev || t)) / 1000; tPrev = t;
       if (!reproduciendo && !encima && performance.now() > pausaHasta && !document.hidden && VEL){
-        pos = (pos || riel.scrollLeft) + VEL;
+        pos = (pos || riel.scrollLeft) + VEL * dt;
         riel.scrollLeft = pos;
         if (riel.scrollLeft >= mitad()) { pos -= mitad(); riel.scrollLeft = pos; }
       } else pos = riel.scrollLeft;
