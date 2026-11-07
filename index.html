@@ -86,7 +86,7 @@
   /* Hero */
   .hero{padding:32px 0 52px;position:relative;overflow:hidden}
   .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:center}
-  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+  @media(max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
   .hero + section{padding-top:30px}
   .hero h1{font-size:clamp(2.2rem,5vw,3.4rem)}
   .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;
@@ -123,23 +123,31 @@
   .ep code{display:block;margin-top:12px;background:#111317;border-radius:8px;padding:10px 12px;font-size:.9rem;color:var(--amarillo);overflow-x:auto}
 
   /* Carrusel de videos */
-  .carrusel{overflow:hidden;position:relative;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-            mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-  .pista{display:flex;gap:18px;width:max-content;padding:4px 0 8px;animation:desfile 40s linear infinite}
-  .carrusel:hover .pista,.carrusel.pausa .pista{animation-play-state:paused}
-  @keyframes desfile{from{transform:translateX(0)}to{transform:translateX(calc(-50% - var(--g,18px) / 2))}}
-  @media (prefers-reduced-motion:reduce){.pista{animation-duration:120s}}
+  .carrusel{position:relative;min-width:0}
+  .riel{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;cursor:grab;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .riel::-webkit-scrollbar{display:none}
+  .riel.arrastrando{cursor:grabbing;user-select:none}
+  .pista{display:flex;gap:18px;width:max-content;padding:4px 0 8px}
+  .controles{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:10px}
+  .controles .ayuda{font-size:.8rem;color:var(--suave)}
+  .flecha{width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:var(--asfalto2);color:var(--amarillo);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s,transform .15s;flex:none}
+  .flecha:hover{background:var(--amarillo);color:#111;transform:scale(1.06)}
+  .flecha svg{width:20px;height:20px}
+  .pista .video{user-select:none;-webkit-user-drag:none}
   .video{flex:0 0 220px;background:var(--asfalto2);border:1px solid var(--linea);border-top:4px solid var(--amarillo);border-radius:16px;overflow:hidden;transition:transform .2s}
   .video:hover{transform:translateY(-4px)}
   @media(max-width:560px){.video{flex-basis:180px}}
-  .hero .pista{--g:14px;gap:14px;animation-duration:32s}
+  .hero .pista{gap:14px}
   .hero .video{flex-basis:170px}
   .hero .video .info{padding:10px 12px 12px}
   .hero .video p{display:none}
   .hero .video h3{font-size:.92rem;margin:0}
   .hero .portada .play{width:50px;height:50px;font-size:1.3rem}
   .hero .portada .emo{font-size:2.6rem}
+  @media(min-width:561px) and (max-width:860px){.hero .video{flex-basis:190px}}
   @media(max-width:560px){.hero .video{flex-basis:150px}}
   .marco{position:relative;aspect-ratio:9/16;background:#0e0f12;cursor:pointer}
   .marco iframe,.marco video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
@@ -287,7 +295,12 @@
       </div>
     </div>
     <div class="carrusel" id="episodios">
-      <div class="pista" id="pista"></div>
+      <div class="riel" id="riel"><div class="pista" id="pista"></div></div>
+      <div class="controles">
+        <button type="button" class="flecha izq" id="flechaIzq" aria-label="Reels anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <span class="ayuda">Desliza o usa las flechas</span>
+        <button type="button" class="flecha der" id="flechaDer" aria-label="Más reels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -460,7 +473,8 @@
   const $ = id => document.getElementById(id);
 
   (function carrusel(){
-    const pista = $('pista'), caja = $('episodios');
+    const pista = $('pista'), caja = $('episodios'), riel = $('riel');
+    let reproduciendo = false;
     // Se dibuja la lista dos veces para que el movimiento sea continuo, sin saltos
     [...VIDEOS, ...VIDEOS].forEach((v, k) => {
       const i = k % VIDEOS.length;
@@ -478,18 +492,73 @@
         <div class="info"><div class="num">Episodio ${String(i + 1).padStart(2, "0")}</div><h3>${v.titulo}</h3><p>${v.texto}</p></div>`;
       if (k >= VIDEOS.length) card.setAttribute('aria-hidden', 'true');
       if (hay) card.querySelector('.marco').addEventListener('click', function(){
-        // Al reproducir un video, el carrusel se detiene para poder verlo
-        caja.classList.add('pausa');
+        if (riel.dataset.movido === '1') return;      // fue un arrastre, no un toque
+        reproduciendo = true;                          // el carrusel se detiene para ver el video
         this.innerHTML = v.youtube
-          ? `<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${v.titulo}"></iframe>`
+          ? `<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${v.titulo}"></iframe>`
           : `<video src="${v.mp4}" controls autoplay playsinline></video>`;
-      }, { once:true });
+      });
       pista.appendChild(card);
     });
-    // En el celular: tocar fuera de un video pausa o reanuda el movimiento
-    caja.addEventListener('touchstart', e => {
-      if (!e.target.closest('.marco')) caja.classList.toggle('pausa');
-    }, { passive:true });
+
+    // ===== Movimiento: automático + flechas + deslizar con el dedo o el ratón =====
+    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const VEL = quieto ? 0 : 0.35;        // píxeles por cuadro (~21 px/s)
+    let pausaHasta = 0, encima = false, pos = 0;
+    const mitad = () => pista.scrollWidth / 2;
+    const paso = () => (pista.querySelector('.video')?.offsetWidth || 170) + 14;
+    const envolver = () => {               // vuelta infinita sin saltos visibles
+      const m = mitad();
+      if (riel.scrollLeft >= m) riel.scrollLeft -= m;
+      else if (riel.scrollLeft <= 0) riel.scrollLeft += m;
+    };
+    const esperar = (ms = 4000) => { pausaHasta = performance.now() + ms; };
+    function avanzar(){
+      if (!reproduciendo && !encima && performance.now() > pausaHasta && !document.hidden && VEL){
+        pos = (pos || riel.scrollLeft) + VEL;
+        riel.scrollLeft = pos;
+        if (riel.scrollLeft >= mitad()) { pos -= mitad(); riel.scrollLeft = pos; }
+      } else pos = riel.scrollLeft;
+      requestAnimationFrame(avanzar);
+    }
+    requestAnimationFrame(() => { riel.scrollLeft = 1; requestAnimationFrame(avanzar); });
+
+    // Flechas
+    const mover = dir => { esperar(); envolver(); riel.scrollBy({ left: dir * paso(), behavior: 'smooth' }); };
+    $('flechaIzq').addEventListener('click', () => mover(-1));
+    $('flechaDer').addEventListener('click', () => mover(1));
+
+    // Pausa al pasar el ratón (computadora) y al tocar (celular)
+    caja.addEventListener('mouseenter', () => encima = true);
+    caja.addEventListener('mouseleave', () => encima = false);
+    riel.addEventListener('touchstart', () => esperar(6000), { passive:true });
+    riel.addEventListener('wheel', () => esperar(), { passive:true });
+    riel.addEventListener('scroll', () => { if (performance.now() < pausaHasta) envolver(); }, { passive:true });
+
+    // Arrastrar con el ratón en computadora
+    let x0 = 0, s0 = 0, abajo = false;
+    riel.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      abajo = true; x0 = e.clientX; s0 = riel.scrollLeft; riel.dataset.movido = '0';
+    });
+    window.addEventListener('pointermove', e => {
+      if (!abajo) return;
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 5) { riel.dataset.movido = '1'; riel.classList.add('arrastrando'); }
+      riel.scrollLeft = s0 - dx; esperar();
+    });
+    window.addEventListener('pointerup', () => {
+      if (!abajo) return; abajo = false; riel.classList.remove('arrastrando'); envolver();
+      setTimeout(() => riel.dataset.movido = '0', 0);
+    });
+
+    // Teclado: flechas izquierda/derecha cuando el carrusel tiene el foco
+    riel.tabIndex = 0;
+    riel.setAttribute('aria-label', 'Reels de Física de la Calle');
+    riel.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); mover(1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); mover(-1); }
+    });
   })();
   function calc(){
     const kmh = +$('v').value, t = +$('t').value, mu = +$('mu').value;
