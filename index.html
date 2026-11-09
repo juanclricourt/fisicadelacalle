@@ -161,6 +161,23 @@
   .video h3{font-size:1.05rem;margin:2px 0 4px}
   .video p{color:var(--suave);font-size:.9rem}
 
+  /* Visor de reels (maximizado) */
+  .visor{position:fixed;inset:0;z-index:50;background:rgba(8,9,11,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}
+  .visor[hidden]{display:none}
+  .visor-caja{width:min(440px,100%);max-height:100%;display:flex;flex-direction:column;gap:10px}
+  .visor-barra{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--texto);font-weight:700;font-size:.95rem}
+  .visor-x{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--linea);background:var(--asfalto2);color:var(--texto);font-size:1.1rem;cursor:pointer}
+  .visor-x:hover{background:var(--amarillo);color:#111}
+  .visor-marco{position:relative;width:min(100%, calc((100vh - 170px) * 9 / 16));aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--linea)}
+  @supports (height:100dvh){.visor-marco{width:min(100%, calc((100dvh - 170px) * 9 / 16))}}
+  .visor-marco iframe,.visor-marco video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .visor-acciones{display:flex;gap:10px;width:min(100%,440px);margin:0 auto}
+  .visor-acciones .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 10px;font-size:.92rem}
+  .yt-btn svg,.yt-link svg{width:20px;height:20px;flex:none}
+  .yt-btn{background:#fff;color:#111}
+  .yt-link{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:.78rem;font-weight:600;color:var(--suave);text-decoration:none}
+  .yt-link:hover{color:#fff}
+  @media(max-width:420px){.visor{padding:10px}.visor-acciones .btn{font-size:.85rem}}
   /* Calculadora */
   .calc{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
   @media(max-width:760px){.calc{grid-template-columns:1fr}}
@@ -452,6 +469,20 @@
   </div>
 </section>
 
+<div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-labelledby="visorTitulo">
+  <div class="visor-caja">
+    <div class="visor-barra">
+      <span id="visorTitulo"></span>
+      <button type="button" class="visor-x" id="visorCerrar" aria-label="Cerrar video">✕</button>
+    </div>
+    <div class="visor-marco" id="visorMarco"></div>
+    <div class="visor-acciones">
+      <button type="button" class="btn sec" id="visorPantalla">⛶ Pantalla completa</button>
+      <a class="btn pri yt-btn" id="visorYT" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><path fill="#fff" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>Ver en YouTube</a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">© <span id="y"></span> Física de la Calle · Contenido educativo sobre seguridad vial en República Dominicana.</div>
 </footer>
@@ -475,6 +506,35 @@
   (function carrusel(){
     const pista = $('pista'), caja = $('episodios'), riel = $('riel');
     let reproduciendo = false;
+
+    // ===== Visor grande (maximizar) =====
+    const visor = $('visor'), vMarco = $('visorMarco'), vTit = $('visorTitulo'), vYT = $('visorYT');
+    let ultimoFoco = null;
+    function abrirVisor(v, i){
+      reproduciendo = true;                          // el carrusel se detiene mientras ves el video
+      ultimoFoco = document.activeElement;
+      vTit.textContent = 'Episodio ' + String(i + 1).padStart(2, '0') + ' · ' + v.titulo;
+      vMarco.innerHTML = v.youtube
+        ? `<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="${v.titulo}"></iframe>`
+        : `<video src="${v.mp4}" controls autoplay playsinline></video>`;
+      vYT.hidden = !v.youtube;
+      if (v.youtube) vYT.href = 'https://www.youtube.com/shorts/' + v.youtube;
+      visor.hidden = false; document.body.style.overflow = 'hidden';
+      $('visorCerrar').focus();
+    }
+    function cerrarVisor(){
+      visor.hidden = true; vMarco.innerHTML = ''; document.body.style.overflow = '';
+      reproduciendo = false;
+      if (ultimoFoco) ultimoFoco.focus();
+    }
+    $('visorCerrar').addEventListener('click', cerrarVisor);
+    visor.addEventListener('click', e => { if (e.target === visor) cerrarVisor(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !visor.hidden) cerrarVisor(); });
+    $('visorPantalla').addEventListener('click', () => {
+      const f = vMarco.querySelector('iframe, video');
+      const el = f || vMarco;
+      (el.requestFullscreen || el.webkitRequestFullscreen || function(){}).call(el);
+    });
     // Se dibuja la lista dos veces para que el movimiento sea continuo, sin saltos
     [...VIDEOS, ...VIDEOS].forEach((v, k) => {
       const i = k % VIDEOS.length;
@@ -489,14 +549,11 @@
             ${hay ? '<div class="play">▶</div>' : '<div class="pronto">Próximamente</div>'}
           </div>
         </div>
-        <div class="info"><div class="num">Episodio ${String(i + 1).padStart(2, "0")}</div><h3>${v.titulo}</h3><p>${v.texto}</p></div>`;
+        <div class="info"><div class="num">Episodio ${String(i + 1).padStart(2, "0")}</div><h3>${v.titulo}</h3><p>${v.texto}</p>${v.youtube ? `<a class="yt-link" href="https://www.youtube.com/shorts/${v.youtube}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><path fill="#fff" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>Ver en YouTube</a>` : ""}</div>`;
       if (k >= VIDEOS.length) card.setAttribute('aria-hidden', 'true');
       if (hay) card.querySelector('.marco').addEventListener('click', function(){
         if (riel.dataset.movido === '1') return;      // fue un arrastre, no un toque
-        reproduciendo = true;                          // el carrusel se detiene para ver el video
-        this.innerHTML = v.youtube
-          ? `<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${v.titulo}"></iframe>`
-          : `<video src="${v.mp4}" controls autoplay playsinline></video>`;
+        abrirVisor(v, i);
       });
       pista.appendChild(card);
     });
