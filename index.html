@@ -84,15 +84,32 @@
     .btns .btn{flex:1 1 100%;text-align:center}
     .aporte{padding:22px 16px}
     .niveles{gap:12px}
-    .calc .card{padding:18px}
-    .redes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .redes a{flex-direction:column;justify-content:center;gap:6px;padding:12px 6px;font-size:.85rem;text-align:center}
+    .calc .card{padding:16px}
+    #calculadora h2,#calculadora .sub{text-align:center;margin-left:auto;margin-right:auto}
+    #calculadora h2{font-size:1.5rem;line-height:1.2}
+    #calculadora .sub{font-size:.92rem;margin-bottom:14px}
+    .calc{gap:10px}
+    .calc label{margin:12px 0 4px;font-size:.95rem}
+    .calc label:first-child{margin-top:0}
+    .calc select{padding:8px 10px}
+    .calc .card:last-child{text-align:center}
+    .calc .total{font-size:2.4rem;margin-top:4px}
+    .calc .barra{height:14px;margin:12px 0 8px}
+    .calc .leyenda{justify-content:center;font-size:.85rem}
+    .calc .nota{font-size:.8rem}
+    .redes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .redes a{flex-direction:column;justify-content:center;gap:6px;padding:12px 4px;font-size:.8rem;text-align:center}
     footer{padding:18px 8px}
   }
 
   /* Hero */
   .hero{padding:32px 0 52px;position:relative;overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:center}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:start}
+  .datos-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:26px;max-width:560px}
+  .datos-hero div{background:var(--asfalto2);border:1px solid var(--linea);border-radius:12px;padding:12px 14px}
+  .datos-hero b{display:block;font-family:"Archivo Black",sans-serif;font-weight:800;color:var(--amarillo);font-size:1.25rem;line-height:1.1}
+  .datos-hero span{font-size:.8rem;color:var(--suave)}
+  @media(max-width:860px){.datos-hero{display:none}}
   @media(max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
   .hero + section{padding-top:30px}
   .hero h1{font-size:clamp(2.2rem,5vw,3.4rem)}
@@ -117,6 +134,19 @@
   .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
   .card{background:var(--asfalto2);border:1px solid var(--linea);border-radius:16px;padding:24px}
   .card .ico{font-size:1.8rem;margin-bottom:10px}
+  .pilar .ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--amarillo);background:rgba(255,199,44,.1);border:1px solid rgba(255,199,44,.25);margin-bottom:14px}
+  .pilar .ico svg{width:24px;height:24px}
+  @media(max-width:760px){
+    .que h2,.que .sub{text-align:center;margin-left:auto;margin-right:auto}
+    .grid3{gap:10px}
+    .pilar{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:start;padding:16px}
+    .pilar .ico{width:44px;height:44px;margin:0;grid-row:1 / span 2}
+    .pilar .ico svg{width:22px;height:22px}
+    .pilar h3{grid-column:2;margin:2px 0 2px;font-size:1.02rem}
+    .pilar p{grid-column:2;font-size:.9rem}
+    .pilar .ley-link,.pilar .ley-fuente{grid-column:2;justify-self:start}
+    .pilar .ley-link{margin-top:10px;font-size:.85rem;padding:8px 12px}
+  }
   .card h3{font-size:1.1rem;margin-bottom:6px}
   .card p{color:var(--suave);font-size:.95rem}
 
@@ -237,6 +267,8 @@
   .aporte::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--amarillo) 0 40px,transparent 40px 70px)}
   .aporte .eti{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--amarillo);font-weight:700}
   .aporte h2{margin:6px 0 8px}
+  .h2-ico{display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;border-radius:.32em;background:var(--amarillo);color:#111;vertical-align:-.18em;margin-left:.15em}
+  .h2-ico svg{width:.72em;height:.72em}
   .aporte .sub{margin-bottom:22px}
   .niveles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
   .nivel{background:#111317;border:1px solid var(--linea);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px}
@@ -264,7 +296,8 @@
   @media(min-width:761px){button.nivel{position:relative}.nivel .tag-dest{position:absolute;top:18px;right:16px}}
   /* Aporte en celular: filas compactas tipo lista */
   @media(max-width:760px){
-    .aporte h2{font-size:1.45rem;line-height:1.15}
+    .aporte .eti,.aporte h2,.aporte .sub{text-align:center;margin-left:auto;margin-right:auto}
+    .aporte h2{font-size:1.5rem;line-height:1.2}
     .aporte .sub{font-size:.92rem;margin-bottom:16px}
     .niveles{grid-template-columns:1fr;gap:8px;margin-bottom:16px}
     button.nivel{display:grid;grid-template-columns:40px 1fr auto 22px;column-gap:12px;row-gap:0;align-items:center;padding:12px 14px}
@@ -293,6 +326,8 @@
   .redes a.fb:hover{border-color:#0866FF}
   .redes a.yt:hover{border-color:#FF0000}
   .redes a.tt:hover{border-color:#FE2C55}
+  .redes a.ig:hover{border-color:#E1306C}
+  @media(max-width:560px){.redes{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin-left:auto;margin-right:auto}.redes a{flex-direction:row;justify-content:center;padding:14px 8px;font-size:.92rem}}
 
   footer{border-top:1px solid var(--linea);padding:18px 0;color:var(--suave);font-size:.88rem;text-align:center}
 </style>
@@ -347,11 +382,16 @@
   <div class="wrap hero-grid">
     <div>
       <span class="tag">🚦 Seguridad vial explicada con ciencia</span>
-      <h1>La física detrás<br>de cada <em>choque</em>.</h1>
-      <p>Videos cortos en 3D que explican por qué pasan los accidentes en nuestras calles: con fórmulas en pantalla y lo que dice la Ley 63-17.</p>
+      <h1>La Física detrás<br>de cada <em>choque</em>.</h1>
+      <p>Videos cortos en 3D que explican por qué pasan los accidentes en nuestras calles: con fórmulas en pantalla y lo que dice la Ley 63-17. Al final, tú decides quién falló.</p>
       <div class="btns">
         <a href="#episodios" class="btn pri">Ver episodios</a>
         <a href="#calculadora" class="btn sec">¿Cuánto tardas en frenar?</a>
+      </div>
+      <div class="datos-hero">
+        <div><b id="nEpisodios">5</b><span>episodios publicados</span></div>
+        <div><b>Diario</b><span>un caso nuevo</span></div>
+        <div><b>63-17</b><span>la ley en cada caso</span></div>
       </div>
     </div>
     <div class="carrusel" id="episodios">
@@ -365,14 +405,14 @@
   </div>
 </section>
 
-<section>
+<section class="que">
   <div class="wrap">
     <h2>¿Qué hacemos?</h2>
     <p class="sub">Cada video toma una situación real de la calle y la desarma en tres partes.</p>
     <div class="grid3">
-      <div class="card"><div class="ico">🎬</div><h3>Recreación 3D</h3><p>Vemos el momento exacto del choque, paso a paso y en cámara lenta.</p></div>
-      <div class="card"><div class="ico">📐</div><h3>La fórmula</h3><p>Velocidad, tiempo de reacción y fricción: los números que deciden si frenas a tiempo.</p></div>
-      <div class="card"><div class="ico">⚖️</div><h3>La ley</h3><p>El artículo de la Ley 63-17 de Movilidad y Tránsito que aplica a cada caso.</p><a class="ley-link" href="https://www.dgii.gov.do/legislacion/leyesTributarias/Documents/Otras%20Leyes%20de%20Inter%C3%A9s/63-17.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>Leer la Ley 63-17 (PDF)</a><small class="ley-fuente">Texto oficial publicado por la DGII</small></div>
+      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><h3>Recreación 3D</h3><p>Vemos el momento exacto del choque, paso a paso y en cámara lenta.</p></div>
+      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3"/><path d="M9 11.2h5.7"/></svg></div><h3>La fórmula</h3><p>Velocidad, tiempo de reacción y fricción: los números que deciden si frenas a tiempo.</p></div>
+      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></svg></div><h3>La ley</h3><p>El artículo de la Ley 63-17 de Movilidad y Tránsito que aplica a cada caso.</p><a class="ley-link" href="https://www.dgii.gov.do/legislacion/leyesTributarias/Documents/Otras%20Leyes%20de%20Inter%C3%A9s/63-17.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>Leer la Ley 63-17 (PDF)</a><small class="ley-fuente">Texto oficial publicado por la DGII</small></div>
     </div>
   </div>
 </section>
@@ -465,7 +505,7 @@
   <div class="wrap">
     <div class="aporte">
       <div class="eti">Apoya el proyecto</div>
-      <h2>Tu aporte acelera el próximo episodio 🚀</h2>
+      <h2>Tu aporte acelera el próximo episodio <span class="h2-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg></span></h2>
       <p class="sub">Cada caso lleva horas de física, animación 3D y revisión de la Ley 63-17. Si te sirve lo que hacemos, puedes ayudarnos a seguir y recibir algo a cambio.</p>
       <div class="niveles">
         <button type="button" class="nivel" data-price="3" aria-pressed="false">
@@ -512,6 +552,7 @@
       <a href="https://www.facebook.com/fisicadelacalle" target="_blank" rel="noopener" class="fb"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#fff"/><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>Facebook</a>
       <a href="https://www.youtube.com/channel/UC-o4tjTQi9iZhzIMk5PnrUg" target="_blank" rel="noopener" class="yt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="7" width="9" height="10" fill="#fff"/><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</a>
       <a href="https://www.tiktok.com/@fisicadelacalle" target="_blank" rel="noopener" class="tt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#25F4EE" transform="translate(-.7 -.7)" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/><path fill="#FE2C55" transform="translate(.7 .7)" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/><path fill="#fff" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>TikTok</a>
+      <a href="https://www.instagram.com/fisicadelacalle" target="_blank" rel="noopener" class="ig"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="igG" cx="0.3" cy="1.07" r="1.3"><stop offset="0" stop-color="#FFDC80"/><stop offset=".25" stop-color="#FCAF45"/><stop offset=".45" stop-color="#F77737"/><stop offset=".6" stop-color="#F56040"/><stop offset=".75" stop-color="#E1306C"/><stop offset=".9" stop-color="#C13584"/><stop offset="1" stop-color="#833AB4"/></radialGradient></defs><path fill="url(#igG)" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>Instagram</a>
     </div>
   </div>
 </section>
@@ -556,6 +597,7 @@
     { titulo:"Frenó por un ciclista", texto:"A 50 km/h, en 1,5 s de reacción recorres unos 21 m sin frenar.", emoji:"🚴", youtube:"UOXdix5tk20" },
     { titulo:"Nuevo caso de la calle", texto:"Mira el episodio 5 de Física de la Calle.", emoji:"🚦", youtube:"YiT7hoOFfN4" }
   ];
+  { const n = document.getElementById('nEpisodios'); if (n) n.textContent = VIDEOS.length; }
 
   const $ = id => document.getElementById(id);
 
