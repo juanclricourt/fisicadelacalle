@@ -156,6 +156,9 @@
   .ley-link:hover{transform:translateY(-1px)}
   .ley-link svg{width:18px;height:18px;flex:none}
   .ley-fuente{display:block;margin-top:6px;font-size:.75rem;color:var(--suave)}
+  .pilar-btn{background:transparent;color:var(--amarillo);border:1px solid rgba(255,199,44,.55)}
+  .pilar-btn:hover{background:rgba(255,199,44,.1)}
+  @media(min-width:761px){.pilar{display:flex;flex-direction:column;align-items:flex-start}.pilar .ley-link{margin-top:auto}.pilar p{margin-bottom:16px}}
   /* Episodios */
   .ep{border-top:4px solid var(--amarillo)}
   .ep .num{font-size:.8rem;color:var(--amarillo);font-weight:700;letter-spacing:1px;text-transform:uppercase}
@@ -234,6 +237,8 @@
 
   /* Quién falló */
   .vs{text-align:center}
+  #aporte{padding-bottom:10px}
+  #redes{padding-top:16px}
   .vs .autos{font-size:clamp(2.2rem,7vw,3.6rem);margin:2px 0 6px;line-height:1.2}
   .vs b.r{color:var(--rojo)} .vs b.a{color:var(--azul)}
 
@@ -412,8 +417,8 @@
     <h2>¿Qué hacemos?</h2>
     <p class="sub">Cada video toma una situación real de la calle y la desarma en tres partes.</p>
     <div class="grid3">
-      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><h3>Recreación 3D</h3><p>Vemos el momento exacto del choque, paso a paso y en cámara lenta.</p></div>
-      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3"/><path d="M9 11.2h5.7"/></svg></div><h3>La fórmula</h3><p>Velocidad, tiempo de reacción y fricción: los números que deciden si frenas a tiempo.</p></div>
+      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><h3>Recreación 3D</h3><p>Vemos el momento exacto del choque, paso a paso y en cámara lenta.</p><a href="#episodios" class="ley-link pilar-btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>Ver los episodios</a><small class="ley-fuente">Casos reales recreados en 3D</small></div>
+      <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M9 17c2 0 2.8-1 2.8-2.8V10c0-2 1-3.3 3.2-3"/><path d="M9 11.2h5.7"/></svg></div><h3>La fórmula</h3><p>Velocidad, tiempo de reacción y fricción: los números que deciden si frenas a tiempo.</p><a href="#calculadora" class="ley-link pilar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>Probar la calculadora</a><small class="ley-fuente">Calcula tu distancia de frenado</small></div>
       <div class="card pilar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/></svg></div><h3>La ley</h3><p>El artículo de la Ley 63-17 de Movilidad y Tránsito que aplica a cada caso.</p><a class="ley-link" href="https://www.dgii.gov.do/legislacion/leyesTributarias/Documents/Otras%20Leyes%20de%20Inter%C3%A9s/63-17.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>Leer la Ley 63-17 (PDF)</a><small class="ley-fuente">Texto oficial publicado por la DGII</small></div>
     </div>
   </div>
@@ -549,7 +554,7 @@
 <section id="redes" class="vs">
   <div class="wrap">
     <h2>Síguenos</h2>
-    <p class="sub" style="margin:0 auto">Un nuevo caso de la calle, explicado con ciencia.</p>
+    <p class="sub" style="margin:0 auto">Un nuevo caso de la calle, explicado con Física.</p>
     <div class="redes">
       <a href="https://www.facebook.com/fisicadelacalle" target="_blank" rel="noopener" class="fb"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#fff"/><path fill="#0866FF" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>Facebook</a>
       <a href="https://www.youtube.com/channel/UC-o4tjTQi9iZhzIMk5PnrUg" target="_blank" rel="noopener" class="yt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="7" width="9" height="10" fill="#fff"/><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>YouTube</a>
@@ -760,6 +765,47 @@
     menu.addEventListener('click', e => { if (e.target.closest('a')) cerrar(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
   })();
+</script>
+<style>
+.pronto-fondo[hidden]{display:none}
+.pronto-fondo{position:fixed;inset:0;background:rgba(8,9,11,.72);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:200}
+.pronto-caja{position:relative;width:min(440px,100%);background:var(--asfalto2);border:1px solid var(--linea);border-radius:20px;padding:30px 26px 24px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden}
+.pronto-caja::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--amarillo) 0 30px,transparent 30px 50px)}
+.pronto-x{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--linea);background:transparent;color:var(--suave);font-size:1rem;cursor:pointer}
+.pronto-ico{width:64px;height:64px;border-radius:18px;margin:4px auto 14px;background:var(--amarillo);color:#111;display:flex;align-items:center;justify-content:center}
+.pronto-ico svg{width:32px;height:32px}
+.pronto-eti{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:2px;color:var(--amarillo);border:1px solid rgba(255,199,44,.4);border-radius:99px;padding:4px 12px;margin-bottom:10px}
+.pronto-caja h3{font-family:"Archivo Black",sans-serif;font-weight:800;font-size:1.45rem;line-height:1.15;margin-bottom:8px}
+.pronto-caja p{color:var(--suave);font-size:.95rem;margin-bottom:16px}
+.pronto-lista{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.pronto-lista span{font-size:.8rem;background:var(--asfalto);border:1px solid var(--linea);border-radius:99px;padding:5px 10px;color:var(--texto)}
+.pronto-av{font-size:.82rem;color:var(--suave);margin-bottom:8px}
+.pronto-redes{display:flex;justify-content:center;gap:8px;margin-bottom:4px}
+.pronto-redes a{width:46px;height:46px;border-radius:12px;background:var(--asfalto);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center}
+.pronto-redes .ico{width:22px;height:22px}
+.pronto-ver{display:block;color:var(--amarillo);font-weight:700;font-size:.9rem;text-decoration:none}
+</style><div class="pronto-fondo" id="pronto" hidden><div class="pronto-caja" role="dialog" aria-modal="true">
+<button class="pronto-x" id="prontoX" aria-label="Cerrar">✕</button>
+<div class="pronto-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="m6.2 5.3 3.1 3.9"/><path d="m12.4 3.4 3.1 4"/><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></div>
+<span class="pronto-eti">PRÓXIMAMENTE</span>
+<h3>El curso está en camino</h3>
+<p>Estamos grabando las clases para que aprendas a crear reels como estos, paso a paso.</p>
+<div class="pronto-lista"><span>🧊 Animación 3D</span><span>🎙️ Voz con IA</span><span>📱 Edición para redes</span></div>
+<div class="pronto-av">Síguenos y te avisamos el día que abra:</div>
+<div class="pronto-redes" id="prRedes"></div>
+</div></div>
+<script>document.querySelectorAll('.redes a').forEach(a=>{const c=a.cloneNode(true);[...c.childNodes].forEach(n=>{if(n.nodeType===3)n.remove()});c.setAttribute('aria-label',a.textContent.trim());document.getElementById('prRedes').appendChild(c)});
+(function(){
+  // CURSO PRÓXIMAMENTE: los botones del curso abren este aviso.
+  // Tú puedes entrar escribiendo fisicadelacalle.com/curso.html. Cuando abra el curso, borra este bloque.
+  const f=document.getElementById('pronto');
+  function abrir(e){ e.preventDefault(); f.hidden=false; document.body.style.overflow='hidden'; document.getElementById('prontoX').focus(); if(window.gtag) gtag('event','curso_proximamente'); }
+  function cerrar(){ f.hidden=true; document.body.style.overflow=''; }
+  document.querySelectorAll('a[href$="curso.html"]').forEach(a=>a.addEventListener('click',abrir));
+  document.getElementById('prontoX').addEventListener('click',cerrar);
+  f.addEventListener('click',e=>{ if(e.target===f) cerrar(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !f.hidden) cerrar(); });
+})();
 </script>
 </body>
 </html>
